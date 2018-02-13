@@ -126,7 +126,7 @@ namespace NLog.MessageTemplates
                             holeIndex++;
                             templateParameters.Add(new MessageTemplateParameter(hole.Name, parameters[hole.Index], hole.Format, hole.CaptureType));
                         }
-                        else
+                        else if(isPositional)
                         {
                             isPositional = false;
                             if (holeIndex != 0)
