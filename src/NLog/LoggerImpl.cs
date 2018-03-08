@@ -54,7 +54,7 @@ namespace NLog
         private static readonly Assembly systemAssembly = typeof(Debug).GetAssembly();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", Justification = "Using 'NLog' in message.")]
-        internal static void Write([NotNull] Type loggerType, TargetWithFilterChain targets, LogEventInfo logEvent, LogFactory factory)
+        internal static void Write([NotNull] Type loggerType, TargetWithFilterChain targets, LogEventInfo logEvent, bool throwsExceptions)
         {
             if (targets == null)
             {
@@ -85,7 +85,7 @@ namespace NLog
             }
 
             AsyncContinuation exceptionHandler = (ex) => { };
-            if (factory.ThrowExceptions)
+            if (throwsExceptions)
             {
                 int originalThreadId = AsyncHelpers.GetManagedThreadId();
                 exceptionHandler = ex =>
